@@ -17,6 +17,8 @@ import com.wireworld.model.Board;
 import com.wireworld.model.BasicBoard;
 import com.wireworld.model.CellState;
 import com.wireworld.model.StandardRule;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 
 
 
