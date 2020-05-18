@@ -9,12 +9,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        WelcomeView welcomeView = new WelcomeView(primaryStage);
+    public void start(Stage stage) throws Exception{
+        WelcomeView welcomeView = new WelcomeView(stage);
         welcomeView.draw();
         Scene scene = new Scene(welcomeView);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.show();
 
     }
 
