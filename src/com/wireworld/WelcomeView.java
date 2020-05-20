@@ -14,8 +14,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+
+import java.io.File;
 
 public class WelcomeView extends GridPane {
     Stage primaryStage;
@@ -111,5 +115,16 @@ public class WelcomeView extends GridPane {
                 "-fx-font-weight: bold;");
         GridPane.setHalignment(file, HPos.CENTER);
         this.add(file, 0, 3);
+
+        file.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.getExtensionFilters().addAll(
+                        new FileChooser.ExtensionFilter("SER Files", "*.ser"));
+                Stage stage = new Stage();
+                File selectedFile = fileChooser.showOpenDialog(stage);
+            }
+        });
     }
 }
