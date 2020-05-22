@@ -1,6 +1,8 @@
 package com.wireworld.model;
 
-public class BasicBoard implements Board {
+import java.io.Serializable;
+
+public class BasicBoard implements Board, Serializable {
 
     private int width;
     private int height;
@@ -16,8 +18,18 @@ public class BasicBoard implements Board {
                 setState(x, y, CellState.EMPTY);
             }
         }
+
     }
 
+    public String toString() {
+        return "wczytano, hurra";
+    }
+
+    public BasicBoard(int width, int height, CellState[][] board) {
+        this.width = width;
+        this.height = height;
+        this.board = board;
+    }
 
 
     @Override

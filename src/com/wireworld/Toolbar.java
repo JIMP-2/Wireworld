@@ -19,6 +19,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.util.Duration;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 
 public class Toolbar extends ToolBar {
 
@@ -33,6 +37,7 @@ public class Toolbar extends ToolBar {
 
     public Toolbar(GridView gridView) {
         this.gridView = gridView;
+        this.gridView.setDrawMode(CellState.CONDUCTOR);
         Button drawEmpty = new Button("empty");
         drawEmpty.setOnAction(this::handleDraw0);
         Button drawConductor = new Button("conductor");
@@ -61,7 +66,25 @@ public class Toolbar extends ToolBar {
         genField = new TextField("20");
         Label label = new Label ("Liczba generacji: ");
 
-        this.getItems().addAll(drawEmpty, drawConductor,drawHead,drawTail, reset, step, label, genField, start, stop, clean);
+        Button save = new Button("Save file");
+        save.setOnAction(this::handleSave);
+
+        this.getItems().addAll(drawConductor,drawHead,drawTail, drawEmpty, reset, step, label, genField, start, stop, clean, save);
+    }
+
+    private void handleSave(ActionEvent actionEvent) {
+        try
+        {
+            FileOutputStream fileOut = new FileOutputStream("generation.txt");
+            ObjectOutputStream outStream = new ObjectOutputStream(fileOut);
+            outStream.writeObject(this.gridView.getInitialBoard());
+            outStream.close();
+            fileOut.close();
+            System.out.println("Saved");
+        }catch(IOException i)
+        {
+            i.printStackTrace();
+        }
     }
 
     private void handleStop(ActionEvent actionEvent) {
@@ -80,17 +103,7 @@ public class Toolbar extends ToolBar {
         }));
         pauseMaker.setCycleCount(generations);
         pauseMaker.play();
-        /*
-        for(int i=0; i<generations; i++) {
-            switchToSimulatingState();
-            this.gridView.getSimulation().step();
-            this.gridView.draw();
-            //Thread.sleep(1000);
-            System.out.println(i);
 
-
-        }
-*/
     }
 
 

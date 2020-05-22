@@ -43,10 +43,10 @@ import javafx.scene.layout.Priority;
 
         private int applicationState = EDITING;
 
-        public GridView(int xRows, int yColumns, int size) {
+        public GridView(BasicBoard initialBoard, int size) {
 
-            this.xRows=xRows;
-            this.yColumns=yColumns;
+            this.xRows=initialBoard.getWidth();
+            this.yColumns=initialBoard.getHeight();
             this.size=size;
             this.c =c;
 
@@ -55,24 +55,19 @@ import javafx.scene.layout.Priority;
             this.canvas.setOnMouseDragged(this::handleDraw);
             this.canvas.setOnMouseMoved(this::handleMoved);
 
-
-
             Toolbar toolbar = new Toolbar(this);
-
-
 
             Pane spacer = new Pane();
             spacer.setMinSize(0, 0);
             spacer.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             VBox.setVgrow(spacer, Priority.ALWAYS);
 
-
             this.getChildren().addAll(toolbar, this.canvas, spacer);
 
             this.affine = new Affine();
             this.affine.appendScale(size,size);
 
-            this.initialBoard = new BasicBoard(xRows, yColumns);
+            this.initialBoard = initialBoard;
         }
 
 
@@ -170,6 +165,10 @@ import javafx.scene.layout.Priority;
             return this.simulation;
         }
 
+        public void setSimulation(Simulation simulation) {
+            this.simulation = simulation;
+        }
+
         public void setDrawMode(CellState newDrawMode) {
             this.drawMode = newDrawMode;
 
@@ -196,6 +195,10 @@ import javafx.scene.layout.Priority;
         public void clean(int x, int y) {
             this.initialBoard.setState(x,y,CellState.EMPTY);
             draw();
+        }
+
+        public Board getInitialBoard() {
+            return this.initialBoard;
         }
 
     }

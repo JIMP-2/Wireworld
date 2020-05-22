@@ -4,6 +4,8 @@ import com.wireworld.model.Board;
 import com.wireworld.model.CellState;
 import com.wireworld.model.SimulationRule;
 
+import java.io.Serializable;
+
 public class Simulation {
 
     private Board simulationBoard;

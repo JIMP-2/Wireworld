@@ -1,5 +1,6 @@
 package com.wireworld;
 
+import com.wireworld.model.BasicBoard;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -19,7 +20,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-import java.io.File;
+import java.io.*;
 
 public class WelcomeView extends GridPane {
     Stage primaryStage;
@@ -87,9 +88,11 @@ public class WelcomeView extends GridPane {
                 int sizeY = (int)((primScreenBounds.getHeight()-30-10-y)/y); // (jak bedziemy wiedzialy, ile nam panel z przyciskami zajmuje
                 int size = sizeX<sizeY ? sizeX : sizeY;
 
+                BasicBoard initialBoard = new BasicBoard(x, y);
+
                 //System.out.println(size);
 
-                GridView gridView = new GridView(x, y, size);
+                GridView gridView = new GridView(initialBoard, size);
                 Scene scene = new Scene(gridView);
                 primaryStage.setScene(scene);
                 primaryStage.show();
@@ -119,12 +122,65 @@ public class WelcomeView extends GridPane {
         file.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                FileChooser fileChooser = new FileChooser();
-                fileChooser.getExtensionFilters().addAll(
-                        new FileChooser.ExtensionFilter("SER Files", "*.ser"));
-                Stage stage = new Stage();
-                File selectedFile = fileChooser.showOpenDialog(stage);
+                try {
+                    BasicBoard st = null;
+
+                    String filepath="C:\\Users\\marty\\OneDrive\\Dokumenty\\Wireworld1\\obj\\generation.ser";
+
+                    FileInputStream fi = new FileInputStream("generation.txt");
+                    ObjectInputStream oi = new ObjectInputStream(fi);
+
+
+                    Object obj = oi.readObject();
+
+                    System.out.println("The Object has been read from the file");
+                    oi.close();
+                    fi.close();
+                    st = (BasicBoard) obj;
+                    System.out.println(st.toString());
+
+                    int y = st.getHeight();
+                    int x = st.getWidth();
+                    Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+                    // System.out.println(primScreenBounds.getWidth() +" "+ primScreenBounds.getHeight());
+                    // System.out.println(x+" "+y);
+                    int sizeX = (int)(primScreenBounds.getWidth()-200-30-10-x)/x; // to potem trzeba będzie poprawić
+                    int sizeY = (int)((primScreenBounds.getHeight()-30-10-y)/y); // (jak bedziemy wiedzialy, ile nam panel z przyciskami zajmuje
+                    int size = sizeX<sizeY ? sizeX : sizeY;
+
+                    GridView gridView = new GridView(st, size);
+                    Scene scene = new Scene(gridView);
+                    primaryStage.setScene(scene);
+                    primaryStage.show();
+
+                    gridView.draw();
+
+                    primaryStage.setScene(scene);
+                    primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
+                    primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
+
+
+
+
+                }  catch (FileNotFoundException e) {
+                System.out.println("File not found");
+            } catch (IOException e) {
+                System.out.println("Error initializing stream");
+            } catch (ClassNotFoundException e) {
+
+                e.printStackTrace();
+            }
+
+
+            System.out.println("click");
+
+
+
+
+
+
             }
         });
     }
+
 }
