@@ -17,6 +17,8 @@ import com.wireworld.model.StandardRule;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.io.FileOutputStream;
@@ -39,12 +41,16 @@ public class Toolbar extends ToolBar {
         this.gridView = gridView;
         this.gridView.setDrawMode(CellState.CONDUCTOR);
         Button drawEmpty = new Button("empty");
+        drawEmpty.setGraphic(new Circle(4, Color.BLACK));
         drawEmpty.setOnAction(this::handleDraw0);
         Button drawConductor = new Button("conductor");
+        drawConductor.setGraphic(new Circle(4, Color.YELLOW));
         drawConductor.setOnAction(this::handleDraw1);
         Button drawHead = new Button("head");
+        drawHead.setGraphic(new Circle(4, Color.BLUE));
         drawHead.setOnAction(this::handleDraw2);
         Button drawTail = new Button("tail");
+        drawTail.setGraphic(new Circle(4, Color.RED));
         drawTail.setOnAction(this::handleDraw3);
         Button clean = new Button("clean");
         clean.setOnAction(this::handleClean);
@@ -75,7 +81,7 @@ public class Toolbar extends ToolBar {
     private void handleSave(ActionEvent actionEvent) {
         try
         {
-            FileOutputStream fileOut = new FileOutputStream("generation.txt");
+            FileOutputStream fileOut = new FileOutputStream("generation.ser");
             ObjectOutputStream outStream = new ObjectOutputStream(fileOut);
             outStream.writeObject(this.gridView.getInitialBoard());
             outStream.close();

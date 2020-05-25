@@ -122,54 +122,52 @@ public class WelcomeView extends GridPane {
         file.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                try {
-                    BasicBoard st = null;
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setInitialDirectory(new File("data"));
+                fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("SER Files", "*.ser"));
+                File selectedFile = fileChooser.showOpenDialog(primaryStage);
+                if(selectedFile!=null) {
+                    try {
+                        BasicBoard st = null;
 
-                    String filepath="C:\\Users\\marty\\OneDrive\\Dokumenty\\Wireworld1\\obj\\generation.ser";
+                        FileInputStream fi = new FileInputStream(selectedFile);
+                        ObjectInputStream oi = new ObjectInputStream(fi);
 
-                    FileInputStream fi = new FileInputStream("generation.txt");
-                    ObjectInputStream oi = new ObjectInputStream(fi);
+                        Object obj = oi.readObject();
 
+                        oi.close();
+                        fi.close();
+                        st = (BasicBoard) obj;
+                        System.out.println(st.toString());
 
-                    Object obj = oi.readObject();
+                        int y = st.getHeight();
+                        int x = st.getWidth();
+                        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+                        int sizeX = (int) (primScreenBounds.getWidth() - 200 - 30 - 10 - x) / x; // to potem trzeba będzie poprawić
+                        int sizeY = (int) ((primScreenBounds.getHeight() - 30 - 10 - y) / y); // (jak bedziemy wiedzialy, ile nam panel z przyciskami zajmuje
+                        int size = sizeX < sizeY ? sizeX : sizeY;
 
-                    System.out.println("The Object has been read from the file");
-                    oi.close();
-                    fi.close();
-                    st = (BasicBoard) obj;
-                    System.out.println(st.toString());
+                        GridView gridView = new GridView(st, size);
+                        Scene scene = new Scene(gridView);
+                        primaryStage.setScene(scene);
+                        primaryStage.show();
 
-                    int y = st.getHeight();
-                    int x = st.getWidth();
-                    Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-                    // System.out.println(primScreenBounds.getWidth() +" "+ primScreenBounds.getHeight());
-                    // System.out.println(x+" "+y);
-                    int sizeX = (int)(primScreenBounds.getWidth()-200-30-10-x)/x; // to potem trzeba będzie poprawić
-                    int sizeY = (int)((primScreenBounds.getHeight()-30-10-y)/y); // (jak bedziemy wiedzialy, ile nam panel z przyciskami zajmuje
-                    int size = sizeX<sizeY ? sizeX : sizeY;
+                        gridView.draw();
 
-                    GridView gridView = new GridView(st, size);
-                    Scene scene = new Scene(gridView);
-                    primaryStage.setScene(scene);
-                    primaryStage.show();
-
-                    gridView.draw();
-
-                    primaryStage.setScene(scene);
-                    primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
-                    primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
-
+                        primaryStage.setScene(scene);
+                        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
+                        primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
 
 
+                    } catch (FileNotFoundException e) {
+                        System.out.println("File not found");
+                    } catch (IOException e) {
+                        System.out.println("Error initializing stream");
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
 
-                }  catch (FileNotFoundException e) {
-                System.out.println("File not found");
-            } catch (IOException e) {
-                System.out.println("Error initializing stream");
-            } catch (ClassNotFoundException e) {
-
-                e.printStackTrace();
-            }
+                    }
+                }
 
 
             System.out.println("click");
