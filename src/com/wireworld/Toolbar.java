@@ -40,18 +40,20 @@ public class Toolbar extends ToolBar {
     public Toolbar(GridView gridView) {
         this.gridView = gridView;
         this.gridView.setDrawMode(CellState.CONDUCTOR);
+
         Button drawEmpty = new Button("empty");
         drawEmpty.setGraphic(new Circle(4, Color.BLACK));
-        drawEmpty.setOnAction(this::handleDraw0);
+        drawEmpty.setOnAction(this::handleDrawEMPTY);
         Button drawConductor = new Button("conductor");
         drawConductor.setGraphic(new Circle(4, Color.YELLOW));
-        drawConductor.setOnAction(this::handleDraw1);
+        drawConductor.setOnAction(this::handleDrawCONDUCTOR);
         Button drawHead = new Button("head");
         drawHead.setGraphic(new Circle(4, Color.BLUE));
-        drawHead.setOnAction(this::handleDraw2);
+        drawHead.setOnAction(this::handleDrawHED);
         Button drawTail = new Button("tail");
         drawTail.setGraphic(new Circle(4, Color.RED));
-        drawTail.setOnAction(this::handleDraw3);
+        drawTail.setOnAction(this::handleDrawTAIL);
+
         Button clean = new Button("clean");
         clean.setOnAction(this::handleClean);
         Button step = new Button("Step");
@@ -65,13 +67,28 @@ public class Toolbar extends ToolBar {
         Button stop = new Button("Stop");
         stop.setOnAction(this::handleStop);
 
+        Button drawOR = new Button("Gate_OR");
+        drawOR.setOnAction(this::handleDrawOR);
+        Button drawXOR = new Button("Gare_XOR");
+        drawXOR.setOnAction(this::handleDrawXOR);
+        Button drawAND = new Button("Gate_AND");
+        drawAND.setOnAction(this::handleDrawAND);
+        Button drawDIODEL = new Button("Diode_LEFT");
+        drawDIODEL.setOnAction(this::handleDrawDIODEL);
+        Button drawDIODELV = new Button("Diode_LEFT_V");
+        drawDIODELV.setOnAction(this::handleDrawDIODELV);
+        Button drawDIODER = new Button("Diode_RIGHT");
+        drawDIODER.setOnAction(this::handleDrawDIODER);
+        Button drawDIODERV = new Button("Diode_RIGHT_V");
+        drawDIODERV.setOnAction(this::handleDrawDIODERV);
+
         genField = new TextField("20");
         Label label = new Label ("Liczba generacji: ");
 
         Button save = new Button("Save file");
         save.setOnAction(this::handleSave);
 
-        this.getItems().addAll(drawConductor,drawHead,drawTail, drawEmpty, reset, step, label, genField, start,start2, stop, clean, save);
+        this.getItems().addAll(drawConductor,drawHead,drawTail, drawEmpty, reset, step, label, genField, start,start2, stop, clean, save,drawAND, drawOR, drawXOR, drawDIODEL, drawDIODER, drawDIODELV, drawDIODERV);
     }
 
     private void handleSave(ActionEvent actionEvent) {
@@ -139,22 +156,61 @@ public class Toolbar extends ToolBar {
 
 
 
-    private void handleDraw0(ActionEvent actionEvent) {
+    private void handleDrawEMPTY(ActionEvent actionEvent) {
 
         this.gridView.setDrawMode(CellState.EMPTY);
     }
-    private void handleDraw1(ActionEvent actionEvent) {
+    private void handleDrawCONDUCTOR(ActionEvent actionEvent) {
 
         this.gridView.setDrawMode(CellState.CONDUCTOR);
     }
-    private void handleDraw2(ActionEvent actionEvent) {
+    private void handleDrawHED(ActionEvent actionEvent) {
 
         this.gridView.setDrawMode(CellState.HEAD);
     }
-    private void handleDraw3(ActionEvent actionEvent) {
+    private void handleDrawTAIL(ActionEvent actionEvent) {
 
         this.gridView.setDrawMode(CellState.TAIL);
     }
+
+    private void handleDrawOR(ActionEvent actionEvent) {
+
+        this.gridView.setDrawMode(CellState.GATE_OR);
+    }
+
+
+    private void handleDrawXOR(ActionEvent actionEvent) {
+
+        this.gridView.setDrawMode(CellState.GATE_XOR);
+    }
+
+    private void handleDrawDIODEL(ActionEvent actionEvent) {
+
+        this.gridView.setDrawMode(CellState.DIODE_LEFT);
+    }
+
+    private void handleDrawDIODELV(ActionEvent actionEvent) {
+
+        this.gridView.setDrawMode(CellState.DIODE_LEFT_VERTICAL);
+    }
+
+    private void handleDrawDIODER(ActionEvent actionEvent) {
+
+        this.gridView.setDrawMode(CellState.DIODE_RIGHT);
+    }
+
+    private void handleDrawDIODERV(ActionEvent actionEvent) {
+
+        this.gridView.setDrawMode(CellState.DIODE_RIGHT_VERTICAL);
+    }
+
+
+    private void handleDrawAND(ActionEvent actionEvent) {
+
+        this.gridView.setDrawMode(CellState.GATE_AND);
+    }
+
+
     private void handleClean(ActionEvent actionEvent) {
 
         for (int x = 0; x < GridView.xRows; x++) {
