@@ -10,14 +10,22 @@ public class Simulator {
     private Timeline timeline;
     private GridView gridView;
     private Simulation simulation;
+    private int generations;
 
-    public Simulator(GridView gridView, Simulation simulation) {
+    public Simulator(GridView gridView, Simulation simulation, int generations) {
         this.gridView = gridView;
         this.simulation = simulation;
+        this.generations = generations;
+
         this.timeline = new Timeline(new KeyFrame(Duration.millis(500), this::doStep));
 
 
-        this.timeline.setCycleCount(Timeline.INDEFINITE);
+        if( generations == 0) {
+            this.timeline.setCycleCount(Timeline.INDEFINITE);
+        }
+        else {
+            this.timeline.setCycleCount(generations);
+        }
 
     }
 

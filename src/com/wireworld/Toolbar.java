@@ -59,13 +59,9 @@ public class Toolbar extends ToolBar {
         Button reset = new Button("Reset");
         reset.setOnAction(this::handleReset);
         Button start = new Button("Start");
-        start.setOnAction(actionEvent -> {
-            try {
-                handleStart(actionEvent);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
+        start.setOnAction(this::handleStart);
+        Button start2 = new Button("Start_To_Infinity");
+        start2.setOnAction(this::handleStart2);
         Button stop = new Button("Stop");
         stop.setOnAction(this::handleStop);
 
@@ -75,7 +71,7 @@ public class Toolbar extends ToolBar {
         Button save = new Button("Save file");
         save.setOnAction(this::handleSave);
 
-        this.getItems().addAll(drawConductor,drawHead,drawTail, drawEmpty, reset, step, label, genField, start, stop, clean, save);
+        this.getItems().addAll(drawConductor,drawHead,drawTail, drawEmpty, reset, step, label, genField, start,start2, stop, clean, save);
     }
 
     private void handleSave(ActionEvent actionEvent) {
@@ -97,26 +93,26 @@ public class Toolbar extends ToolBar {
         this.simulator.stop();
     }
 
-    private void handleStart(ActionEvent actionEvent) throws InterruptedException {
-        generations = Integer.parseInt(genField.getText());
-        Timeline pauseMaker = new Timeline(new KeyFrame(Duration.seconds(0.5), new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                switchToSimulatingState();
-                gridView.getSimulation().step();
-                gridView.draw();
-            }
-        }));
-        pauseMaker.setCycleCount(generations);
-        pauseMaker.play();
 
-    }
 
 
     private void handleReset(ActionEvent actionEvent) {
         this.gridView.setApplicationState(GridView.EDITING);
         this.simulator = null;
         this.gridView.draw();
+    }
+
+    private void handleStart(ActionEvent actionEvent) {
+        generations = Integer.parseInt(genField.getText());
+        switchToSimulatingState();
+        this.simulator.start();
+    }
+
+
+    private void handleStart2(ActionEvent actionEvent) {
+        generations = 0;
+        switchToSimulatingState();
+        this.simulator.start();
     }
 
 
@@ -137,7 +133,7 @@ public class Toolbar extends ToolBar {
     private void switchToSimulatingState() {
         if (this.gridView.getApplicationState() == GridView.EDITING) {
             this.gridView.setApplicationState(GridView.SIMULATING);
-            this.simulator = new Simulator(this.gridView, this.gridView.getSimulation());
+            this.simulator = new Simulator(this.gridView, this.gridView.getSimulation(), generations);
         }
     }
 
