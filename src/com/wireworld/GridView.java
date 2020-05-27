@@ -19,10 +19,10 @@ import com.wireworld.model.CellState;
 import com.wireworld.model.StandardRule;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.stage.Stage;
 
 
-
-    public class GridView extends VBox {
+public class GridView extends VBox {
 
         public static final int EDITING = 0;
         public static final int SIMULATING = 1;
@@ -43,7 +43,10 @@ import javafx.scene.layout.Priority;
 
         private int applicationState = EDITING;
 
-        public GridView(BasicBoard initialBoard, int size) {
+        private Stage primaryStage;
+
+        public GridView(BasicBoard initialBoard, int size, Stage primaryStage) {
+            this.primaryStage = primaryStage;
 
             this.xRows=initialBoard.getWidth();
             this.yColumns=initialBoard.getHeight();
@@ -55,7 +58,7 @@ import javafx.scene.layout.Priority;
             this.canvas.setOnMouseDragged(this::handleDraw);
             this.canvas.setOnMouseMoved(this::handleMoved);
 
-            Toolbar toolbar = new Toolbar(this);
+            Toolbar toolbar = new Toolbar(this, primaryStage);
 
             Pane spacer = new Pane();
             spacer.setMinSize(0, 0);

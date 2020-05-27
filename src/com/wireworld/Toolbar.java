@@ -6,8 +6,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import com.wireworld.model.Board;
@@ -15,15 +14,13 @@ import com.wireworld.model.BasicBoard;
 import com.wireworld.model.CellState;
 import com.wireworld.model.StandardRule;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ToolBar;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 
 public class Toolbar extends ToolBar {
@@ -31,13 +28,16 @@ public class Toolbar extends ToolBar {
     private GridView gridView;
     private int generations;
     private TextField genField;
+    private Stage primaryStage;
+
 
 
 
     private Simulator simulator;
     private Simulation simulation;
 
-    public Toolbar(GridView gridView) {
+    public Toolbar(GridView gridView, Stage primaryStage) {
+        this.primaryStage = primaryStage;
         this.gridView = gridView;
         this.gridView.setDrawMode(CellState.CONDUCTOR);
 
@@ -85,25 +85,41 @@ public class Toolbar extends ToolBar {
         genField = new TextField("20");
         Label label = new Label ("Liczba generacji: ");
 
+        //CheckBox saveEvery = new CheckBox("zapisz kazda generacje do pliku");
+
         Button save = new Button("Save file");
         save.setOnAction(this::handleSave);
 
-        this.getItems().addAll(drawConductor,drawHead,drawTail, drawEmpty, reset, step, label, genField, start,start2, stop, clean, save,drawAND, drawOR, drawXOR, drawDIODEL, drawDIODER, drawDIODELV, drawDIODERV);
+        this.getItems().addAll(drawConductor,drawHead,drawTail, drawEmpty, reset, step, label, genField, start,start2, stop, clean, save, drawAND, drawOR, drawXOR, drawDIODEL, drawDIODER, drawDIODELV, drawDIODERV);
     }
 
     private void handleSave(ActionEvent actionEvent) {
-        try
-        {
-            FileOutputStream fileOut = new FileOutputStream("generation.ser");
-            ObjectOutputStream outStream = new ObjectOutputStream(fileOut);
-            outStream.writeObject(this.gridView.getInitialBoard());
-            outStream.close();
-            fileOut.close();
-            System.out.println("Saved");
-        }catch(IOException i)
-        {
-            i.printStackTrace();
-        }
+
+
+            FileChooser fileChooser = new FileChooser();
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("SER files (*.ser)", "*.ser");
+            fileChooser.getExtensionFilters().add(extFilter);
+
+            File selectedFile = fileChooser.showSaveDialog(primaryStage);
+
+            if(selectedFile != null) {
+                if(!selectedFile.getName().contains(".ser")) {
+                    selectedFile = new File(selectedFile.getAbsolutePath()+".ser");
+                }
+                try {
+                    FileOutputStream fo = new FileOutputStream(selectedFile);
+                    ObjectOutputStream oo = new ObjectOutputStream(fo);
+
+                    oo.writeObject(this.gridView.getInitialBoard());
+
+                    oo.close();
+                    fo.close();
+                }
+                catch(IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
     }
 
     private void handleStop(ActionEvent actionEvent) {

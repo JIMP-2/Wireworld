@@ -92,7 +92,7 @@ public class WelcomeView extends GridPane {
 
                 //System.out.println(size);
 
-                GridView gridView = new GridView(initialBoard, size);
+                GridView gridView = new GridView(initialBoard, size, primaryStage);
                 Scene scene = new Scene(gridView);
                 primaryStage.setScene(scene);
                 primaryStage.show();
@@ -147,7 +147,7 @@ public class WelcomeView extends GridPane {
                         int sizeY = (int) ((primScreenBounds.getHeight() - 30 - 10 - y) / y); // (jak bedziemy wiedzialy, ile nam panel z przyciskami zajmuje
                         int size = sizeX < sizeY ? sizeX : sizeY;
 
-                        GridView gridView = new GridView(st, size);
+                        GridView gridView = new GridView(st, size, primaryStage);
                         Scene scene = new Scene(gridView);
                         primaryStage.setScene(scene);
                         primaryStage.show();
