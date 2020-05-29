@@ -23,6 +23,18 @@ import javafx.scene.layout.Priority;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import static com.wireworld.Cells.Conductor.drawConductor;
+import static com.wireworld.Cells.Empty.drawEmpty;
+import static com.wireworld.Cells.Head.drawHead;
+import static com.wireworld.Cells.Tail.drawTail;
+import static com.wireworld.Cells.Diode_left.drawDiodeLeft;
+import static com.wireworld.Cells.Diode_left_vertical.drawDiodeLeftVertical;
+import static com.wireworld.Cells.Diode_right.drawDiodeRight;
+import static com.wireworld.Cells.Diode_right_vertical.drawDiodeRightVertical;
+import static com.wireworld.Cells.Gate_and.drawGateAnd;
+import static com.wireworld.Cells.Gate_or.drawGateOr;
+import static com.wireworld.Cells.Gate_xor.drawGateXor;
+
 
 public class GridView extends VBox {
 
@@ -153,186 +165,59 @@ public class GridView extends VBox {
             g.setFill(Color.BLACK);
              g.fillRect(0, 0, xRows*size, yColumns*size);
             g.setFill(Color.WHITE);
+
             for (int x = 0; x < simulationToDraw.getWidth(); x++) {
                 for (int y = 0; y < simulationToDraw.getHeight(); y++) {
+
                     if (simulationToDraw.getState(x, y) == CellState.EMPTY) {
-                        g.setFill(Color.BLACK);
-                        g.fillRect(x, y, 1, 1);
+                        drawEmpty(simulationToDraw,x,y,g);
                     }
+
                     if (simulationToDraw.getState(x, y) == CellState.CONDUCTOR) {
-                        g.setFill(Color.YELLOW);
-                        g.fillRect(x, y, 1, 1);
+                        drawConductor(simulationToDraw,x,y,g);
                     }
+
                     if (simulationToDraw.getState(x, y) == CellState.HEAD) {
-                        g.setFill(Color.BLUE);
-                        g.fillRect(x, y, 1, 1);
+                        drawHead(simulationToDraw,x,y,g);
                     }
+
                     if (simulationToDraw.getState(x, y) == CellState.TAIL) {
-                        g.setFill(Color.RED);
-                        g.fillRect(x, y, 1, 1);
+                        drawTail(simulationToDraw,x,y,g);
                     }
+
                     if (simulationToDraw.getState(x, y) == CellState.DIODE_RIGHT) {
-
-                        g.setFill(Color.YELLOW);
-                        g.fillRect(x, y, 1, 1);
-                        simulationToDraw.setState(x, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 1, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 2, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 3, y - 1, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 3, y + 1, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 4, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 4, y - 1, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 4, y + 1, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 5, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 6, y, CellState.CONDUCTOR);
-
+                        drawDiodeRight(simulationToDraw,x,y,g);
                         setDrawMode(CellState.CONDUCTOR);
                     }
 
                     if (simulationToDraw.getState(x, y) == CellState.DIODE_RIGHT_VERTICAL) {
-
-                        g.setFill(Color.YELLOW);
-                        g.fillRect(x, y, 1, 1);
-                        g.fillRect(x-1, y+3, 1, 1);
-                        g.fillRect(x-1, y+4, 1, 1);
-                        simulationToDraw.setState(x, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x , y+1, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x, y+2, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x  -1, y +3, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 1, y + 3, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x -1, y+4, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x , y +4, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 1, y + 4, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x , y+5, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x , y+6, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x , y+7, CellState.CONDUCTOR);
-
+                        drawDiodeRightVertical(simulationToDraw,x,y,g);
                         setDrawMode(CellState.CONDUCTOR);
                     }
 
                     if (simulationToDraw.getState(x, y) == CellState.DIODE_LEFT) {
-
-                        g.setFill(Color.YELLOW);
-                        g.fillRect(x, y, 1, 1);
-                        simulationToDraw.setState(x, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 1, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 2, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 4, y - 1, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 4, y + 1, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 3, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 3, y - 1, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 3, y + 1, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 5, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 6, y, CellState.CONDUCTOR);
-
+                        drawDiodeLeft(simulationToDraw,x,y,g);
                         setDrawMode(CellState.CONDUCTOR);
-
-
                     }
 
-
                     if (simulationToDraw.getState(x, y) == CellState.DIODE_LEFT_VERTICAL) {
-
-                        g.setFill(Color.YELLOW);
-                        g.fillRect(x, y, 1, 1);
-                        g.fillRect(x-1, y+3, 1, 1);
-                        g.fillRect(x-1, y+4, 1, 1);
-                        simulationToDraw.setState(x, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x , y+1, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x, y+2, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x  -1, y +4, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 1, y + 4, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x -1, y+3, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x , y +3, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x + 1, y + 3, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x , y+5, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x , y+6, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x , y+7, CellState.CONDUCTOR);
-
+                        drawDiodeLeftVertical(simulationToDraw,x,y,g);
                         setDrawMode(CellState.CONDUCTOR);
                     }
 
                     if (simulationToDraw.getState(x, y) == CellState.GATE_AND) {
-                        g.setFill(Color.YELLOW);
-                        g.fillRect(x, y, 1, 1);
-                        simulationToDraw.setState(x, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+1, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+2, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+3, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+4, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+5, y+1, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+5, y+2, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+4, y+2, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+6, y+2, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+5, y+3, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+4, y+4, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+3, y+5, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+2, y+6, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+1, y+6, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x, y+6, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+6, y+4, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+7, y+4, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+8, y+4, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+9, y+4, CellState.CONDUCTOR);
-
+                        drawGateAnd(simulationToDraw,x,y,g);
                         setDrawMode(CellState.CONDUCTOR);
-
-
                     }
 
                     if (simulationToDraw.getState(x, y) == CellState.GATE_OR) {
-                        g.setFill(Color.YELLOW);
-                        g.fillRect(x, y, 1, 1);
-                        simulationToDraw.setState(x, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+1, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+2, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+3, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+4, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+5, y+1, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+5, y+2, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+4, y+2, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+6, y+2, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+7, y+2, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+8, y+2, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+5, y+3, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+4, y+4, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+3, y+4, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+2, y+4, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+1, y+4, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x, y+4, CellState.CONDUCTOR);
-
-
+                        drawGateOr(simulationToDraw,x,y,g);
                         setDrawMode(CellState.CONDUCTOR);
-
                     }
+
                     if (simulationToDraw.getState(x, y) == CellState.GATE_XOR) {
-                        g.setFill(Color.YELLOW);
-                        g.fillRect(x, y, 1, 1);
-                        simulationToDraw.setState(x, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+1, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+2, y, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+3, y+1, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+2, y+2, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+3, y+2, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+4, y+2, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+5, y+2, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+2, y+3, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+5, y+3, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+6, y+3, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+7, y+3, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+8, y+3, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+2, y+4, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+3, y+4, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+4, y+4, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+5, y+4, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+3, y+5, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+2, y+6, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x+1, y+6, CellState.CONDUCTOR);
-                        simulationToDraw.setState(x, y+6, CellState.CONDUCTOR);
-
-
+                        drawGateXor(simulationToDraw,x,y,g);
                         setDrawMode(CellState.CONDUCTOR);
-
                     }
                 }
             }
