@@ -3,6 +3,7 @@ package com.wireworld;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -19,6 +20,7 @@ import com.wireworld.model.CellState;
 import com.wireworld.model.StandardRule;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
@@ -48,6 +50,14 @@ public class GridView extends VBox {
         public GridView(BasicBoard initialBoard, int size, Stage primaryStage) {
             this.primaryStage = primaryStage;
 
+            Screen screen = Screen.getPrimary();
+            Rectangle2D bounds = screen.getVisualBounds();
+
+            primaryStage.setX(bounds.getMinX());
+            primaryStage.setY(bounds.getMinY());
+            primaryStage.setWidth(bounds.getWidth());
+            primaryStage.setHeight(bounds.getHeight());
+
             this.xRows=initialBoard.getWidth();
             this.yColumns=initialBoard.getHeight();
             this.size=size;
@@ -58,7 +68,7 @@ public class GridView extends VBox {
             this.canvas.setOnMouseDragged(this::handleDraw);
             this.canvas.setOnMouseMoved(this::handleMoved);
 
-            Toolbar toolbar = new Toolbar(this, primaryStage);
+            Toolbar toolbar = new Toolbar(this, primaryStage, size);
 
             Pane spacer = new Pane();
             spacer.setMinSize(0, 0);
