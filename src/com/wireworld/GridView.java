@@ -81,13 +81,16 @@ public class GridView extends VBox {
             this.canvas.setOnMouseMoved(this::handleMoved);
 
             Toolbar toolbar = new Toolbar(this, primaryStage, size);
+            MainTool toolbar2 = new MainTool(this, primaryStage, size);
+
+
 
             Pane spacer = new Pane();
             spacer.setMinSize(0, 0);
             spacer.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             VBox.setVgrow(spacer, Priority.ALWAYS);
 
-            this.getChildren().addAll(toolbar, this.canvas, spacer);
+            this.getChildren().addAll(toolbar, toolbar2, this.canvas, spacer);
 
             this.affine = new Affine();
             this.affine.appendScale(size,size);
