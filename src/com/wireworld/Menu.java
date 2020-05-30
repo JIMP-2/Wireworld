@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -154,6 +155,7 @@ public class Menu extends AnchorPane {
         genField.setPrefHeight(26);
 
 
+
         Button start = new Button("Start");
         start.setOnAction(this::handleStart);
         start.setLayoutX(175);
@@ -266,7 +268,11 @@ public class Menu extends AnchorPane {
     }
 
     private void handleStop(ActionEvent actionEvent) {
-        this.simulator.stop();
+        try {
+            this.simulator.stop();
+        } catch (Exception e){
+            System.out.println("Stop Error");
+        }
     }
 
 

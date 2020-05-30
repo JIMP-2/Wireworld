@@ -1,6 +1,7 @@
 package com.wireworld;
 
 import com.wireworld.model.BasicBoard;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -8,19 +9,22 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import javafx.stage.Window;
+import javafx.stage.*;
+
+import static com.wireworld.Alerts.showAlert;
+import static com.wireworld.Alerts.showAlertInteger;
 
 import java.io.*;
+
 
 public class WelcomeView extends GridPane {
     Stage primaryStage;
@@ -33,7 +37,9 @@ public class WelcomeView extends GridPane {
         this.setAlignment(Pos.CENTER);
     }
 
-    public void draw() {
+
+
+        public  void draw() {
         Text welcome = new Text("W I R E W O R L D");
         welcome.setStyle("   -fx-font: 40px Tahoma;\n" +
                 "    -fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, blue 0%, red 33%, yellow 66%);\n" +
@@ -63,6 +69,8 @@ public class WelcomeView extends GridPane {
         widthBox.setAlignment(Pos.CENTER);
         widthBox.getChildren().addAll(widthLabel, width);
 
+
+
         Button create = new Button("Create");
         create.setMaxWidth(Double.MAX_VALUE);
         create.setMaxWidth(120);
@@ -79,29 +87,44 @@ public class WelcomeView extends GridPane {
             @Override
             public void handle(ActionEvent actionEvent) {
 
-                int y = Integer.parseInt(height.getText());
-                int x = Integer.parseInt(width.getText());
-                Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-               // System.out.println(primScreenBounds.getWidth() +" "+ primScreenBounds.getHeight());
-               // System.out.println(x+" "+y);
-                int sizeX = (int)(primScreenBounds.getWidth()-300)/x; // to potem trzeba będzie poprawić
-                int sizeY = (int)((primScreenBounds.getHeight()-100)/y); // (jak bedziemy wiedzialy, ile nam panel z przyciskami zajmuje
-                int size = sizeX<sizeY ? sizeX : sizeY;
 
-                BasicBoard initialBoard = new BasicBoard(x, y);
+                int x = -1;
+                int y = -1;
 
-                //System.out.println(size);
 
-                GridView gridView = new GridView(initialBoard, size, primaryStage);
-                Scene scene = new Scene(gridView);
-                primaryStage.setScene(scene);
-                primaryStage.show();
+                try {
+                y = Integer.parseInt(height.getText());
+                x = Integer.parseInt(width.getText());
+                } catch (NumberFormatException n) {
+                    showAlertInteger();
+                }
 
-                gridView.draw();
+                if (x >= 0 || y >= 0)
+                try {
 
-                primaryStage.setScene(scene);
-                primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
-                primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
+                    Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+                    // System.out.println(primScreenBounds.getWidth() +" "+ primScreenBounds.getHeight());
+                    // System.out.println(x+" "+y);
+                    int sizeX = (int) (primScreenBounds.getWidth() - 300) / x; // to potem trzeba będzie poprawić
+                    int sizeY = (int) ((primScreenBounds.getHeight() - 100) / y); // (jak bedziemy wiedzialy, ile nam panel z przyciskami zajmuje
+                    int size = sizeX < sizeY ? sizeX : sizeY;
+
+                    BasicBoard initialBoard = new BasicBoard(x, y);
+
+
+                    GridView gridView = new GridView(initialBoard, size, primaryStage);
+                    Scene scene = new Scene(gridView);
+                    primaryStage.setScene(scene);
+                    primaryStage.show();
+
+                    gridView.draw();
+
+                    primaryStage.setScene(scene);
+                    primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
+                    primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
+                }  catch (Exception e) {
+                    showAlert();
+                }
             }
         });
 

@@ -291,17 +291,6 @@ public class GridView extends VBox {
         public int getApplicationState() {
             return applicationState;
         }
-/*
-        public void clean(int x, int y) {
-
-            setApplicationState(EDITING);
-            simulation = null;
-            this.initialBoard.setState(x,y,CellState.EMPTY);
-            draw();
-
-        }
-
- */
 
 
 
