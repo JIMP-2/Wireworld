@@ -60,6 +60,7 @@ public class GridView extends VBox {
         private Stage primaryStage;
 
         public GridView(BasicBoard initialBoard, int size, Stage primaryStage) {
+
             this.primaryStage = primaryStage;
 
             Screen screen = Screen.getPrimary();
@@ -67,8 +68,8 @@ public class GridView extends VBox {
 
             primaryStage.setX(bounds.getMinX());
             primaryStage.setY(bounds.getMinY());
-            primaryStage.setWidth(bounds.getWidth());
-            primaryStage.setHeight(bounds.getHeight());
+            primaryStage.setMaxWidth(bounds.getWidth());
+            primaryStage.setMaxHeight(bounds.getHeight());
 
             this.xRows=initialBoard.getWidth();
             this.yColumns=initialBoard.getHeight();
@@ -81,16 +82,21 @@ public class GridView extends VBox {
             this.canvas.setOnMouseMoved(this::handleMoved);
 
             Toolbar toolbar = new Toolbar(this, primaryStage, size);
-            MainTool toolbar2 = new MainTool(this, primaryStage, size);
+
+            HBox hbox = new HBox();
+            Menu toolbar2 = new Menu(this, primaryStage, size);
+            hbox.getChildren().addAll(this.canvas, toolbar2);
 
 
-
+/*
             Pane spacer = new Pane();
             spacer.setMinSize(0, 0);
             spacer.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             VBox.setVgrow(spacer, Priority.ALWAYS);
 
-            this.getChildren().addAll(toolbar, toolbar2, this.canvas, spacer);
+ */
+
+            this.getChildren().addAll(toolbar, hbox);
 
             this.affine = new Affine();
             this.affine.appendScale(size,size);

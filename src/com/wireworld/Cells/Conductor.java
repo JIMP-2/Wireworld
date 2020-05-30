@@ -7,10 +7,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Conductor extends GridView {
 
 
-        public Conductor(BasicBoard initialBoard, int size, Stage primaryStage) {
+        public Conductor(BasicBoard initialBoard, int size, Stage primaryStage) throws IOException {
             super(initialBoard, size, primaryStage);
         }
 

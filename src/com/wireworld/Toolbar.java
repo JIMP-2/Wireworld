@@ -46,10 +46,7 @@ public class Toolbar extends ToolBar {
 
         Button save = new Button("Save file");
         save.setOnAction(this::handleSave);
-        save.setTranslateY(0);
         save.setAlignment(Pos.CENTER);
-        save.setTranslateX(0);
-
 
         this.getItems().addAll(save);
 

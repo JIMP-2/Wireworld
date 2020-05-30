@@ -27,7 +27,9 @@ import java.io.*;
 
 import static com.wireworld.GridView.xRows;
 import static com.wireworld.GridView.yColumns;
-
+/* TO JEST STARE
+potem pewnie bedzie trzeba wywalic, na razie zostawilam, jakby w keylistenerach mi sie cos pomieszalo
+ */
 
 public class MainTool extends HBox {
 
@@ -52,30 +54,30 @@ public class MainTool extends HBox {
         vb.setSpacing(10);
 
         Label label1 = new Label("The Wireworld Computer ");
-        label1.setTranslateY(0);
+       // label1.setTranslateY(0);
         label1.setAlignment(Pos.BASELINE_LEFT);
-        label1.setTranslateX(0);
+       // label1.setTranslateX(0);
 
 
 
         Button drawEmpty = new Button("empty");
         drawEmpty.setGraphic(new Circle(4, Color.BLACK));
         drawEmpty.setOnAction(this::handleDrawEMPTY);
-       drawEmpty.setTranslateY(28);
+       //drawEmpty.setTranslateY(28);
         drawEmpty.setAlignment(Pos.CENTER);
       //  drawEmpty.setPrefWidth(120);
 
-        drawEmpty.setTranslateX(xRows * size -130 );
+        //drawEmpty.setTranslateX(xRows * size -130 );
 
 
 
         Button drawConductor = new Button("conductor");
         drawConductor.setGraphic(new Circle(4, Color.YELLOW));
         drawConductor.setOnAction(this::handleDrawCONDUCTOR);
-        drawConductor.setTranslateY(28);
+       // drawConductor.setTranslateY(28);
         drawConductor.setAlignment(Pos.CENTER);
        // drawConductor.setPrefWidth(140);
-        drawConductor.setTranslateX(xRows * size -120);
+       // drawConductor.setTranslateX(xRows * size -120);
 
 
 
@@ -83,44 +85,44 @@ public class MainTool extends HBox {
         Button drawTail = new Button("tail");
         drawTail.setGraphic(new Circle(4, Color.RED));
         drawTail.setOnAction(this::handleDrawTAIL);
-        drawTail.setTranslateY(68);
+     //   drawTail.setTranslateY(68);
      //   drawTail.setPrefWidth(120);
         drawTail.setAlignment(Pos.CENTER);
-        drawTail.setTranslateX(xRows * size -280);
+     //   drawTail.setTranslateX(xRows * size -280);
 
 
         Button drawHead = new Button("head");
         drawHead.setGraphic(new Circle(4, Color.BLUE));
         drawHead.setOnAction(this::handleDrawHED);
-        drawHead.setTranslateY(68);
+      //  drawHead.setTranslateY(68);
         drawHead.setAlignment(Pos.CENTER);
         // drawHead.setPrefWidth(120);
-        drawHead.setTranslateX(xRows * size -270 );
+     //   drawHead.setTranslateX(xRows * size -270 );
 
 
 
         Button drawOR = new Button("Gate_OR");
         drawOR.setOnAction(this::handleDrawOR);
-        drawOR.setTranslateY(108);
+      //  drawOR.setTranslateY(108);
         drawOR.setAlignment(Pos.CENTER);
     //    drawOR.setPrefWidth(120);
-        drawOR.setTranslateX(xRows * size -385 );
+     //   drawOR.setTranslateX(xRows * size -385 );
 
 
         Button drawXOR = new Button("Gare_XOR");
         drawXOR.setOnAction(this::handleDrawXOR);
-        drawXOR.setTranslateY(108);
+     //   drawXOR.setTranslateY(108);
         drawXOR.setAlignment(Pos.CENTER);
     //   drawXOR.setPrefWidth(120);
-        drawXOR.setTranslateX(xRows * size -375 );
+     //   drawXOR.setTranslateX(xRows * size -375 );
 
 
         Button drawAND = new Button("Gate_AND");
         drawAND.setOnAction(this::handleDrawAND);
-        drawAND.setTranslateY(108);
+     //   drawAND.setTranslateY(108);
         drawAND.setAlignment(Pos.CENTER);
      //   drawAND.setPrefWidth(120);
-        drawAND.setTranslateX(xRows * size -365 );
+     //   drawAND.setTranslateX(xRows * size -365 );
 
 
         Button drawDIODEL = new Button("Diode_LEFT");
@@ -133,32 +135,32 @@ public class MainTool extends HBox {
 
         Button drawDIODELV = new Button("Diode_LEFT_V");
         drawDIODELV.setOnAction(this::handleDrawDIODELV);
-        drawDIODELV.setTranslateY(148);
+     //   drawDIODELV.setTranslateY(148);
         drawDIODELV.setAlignment(Pos.CENTER);
     //    drawDIODELV.setPrefWidth(140);
-        drawDIODELV.setTranslateX(xRows * size -664 );
+     //   drawDIODELV.setTranslateX(xRows * size -664 );
 
 
         Button drawDIODER = new Button("Diode_RIGHT");
         drawDIODER.setOnAction(this::handleDrawDIODER);
-        drawDIODER.setTranslateY(188);
+     //   drawDIODER.setTranslateY(188);
         drawDIODER.setAlignment(Pos.CENTER);
      //   drawDIODER.setPrefWidth(140);
-        drawDIODER.setTranslateX(xRows * size -668 );
+     //   drawDIODER.setTranslateX(xRows * size -668 );
 
 
         Button drawDIODERV = new Button("Diode_RIGHT_V");
         drawDIODERV.setOnAction(this::handleDrawDIODERV);
-        drawDIODERV.setTranslateY(188);
+     //   drawDIODERV.setTranslateY(188);
         drawDIODERV.setAlignment(Pos.CENTER);
      //   drawDIODERV.setPrefWidth(160);
-        drawDIODERV.setTranslateX(xRows * size -748  );
+     //   drawDIODERV.setTranslateX(xRows * size -748  );
 
 
         Label label = new Label("Liczba generacji: ");
-        label.setTranslateY(238);
+     //   label.setTranslateY(238);
         label.setAlignment(Pos.BASELINE_LEFT);
-        label.setTranslateX(xRows * size  -945);
+      //  label.setTranslateX(xRows * size  -945);
     //    label.setPrefWidth(120);
 
 
