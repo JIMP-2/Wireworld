@@ -295,9 +295,6 @@ public class Menu extends AnchorPane {
         switchToSimulatingState();
         this.gridView.getSimulation().step();
         this.gridView.draw();
-        switchToSimulatingState();
-        this.gridView.getSimulation().step();
-        this.gridView.draw();
 
     }
 
@@ -311,11 +308,12 @@ public class Menu extends AnchorPane {
 
     private void handleClean(ActionEvent actionEvent) {
 
-        for (int x = 0; x < GridView.xRows; x++) {
-            for (int y = 0; y < GridView.yColumns; y++) {
-                this.gridView.clean(x, y);
-            }
-        }
-        this.gridView.draw();
+        this.gridView.setApplicationState(GridView.EDITING);
+        this.simulator = null;
+        this.gridView.drawClean();
+
     }
-}
+
+    }
+
+

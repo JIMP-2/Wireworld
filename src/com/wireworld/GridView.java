@@ -151,8 +151,8 @@ public class GridView extends VBox {
 
             if (this.applicationState == EDITING) {
                 drawSimulation(this.initialBoard);
-            } else {
-                drawSimulation(this.simulation.getBoard());
+           } else {
+              drawSimulation(this.simulation.getBoard());
             }
 
             g.setStroke(Color.GRAY);
@@ -167,6 +167,36 @@ public class GridView extends VBox {
 
         }
 
+
+
+    public void drawClean() {
+        GraphicsContext g = this.canvas.getGraphicsContext2D();
+        g.setTransform(this.affine);
+
+
+      //  g.setFill(Color.BLACK);
+        g.fillRect(0, 0, xRows * size, yColumns * size);
+      //  g.setFill(Color.WHITE);
+
+        for (int x = 0; x < this.initialBoard.getWidth(); x++) {
+            for (int y = 0; y < this.initialBoard.getHeight(); y++) {
+
+                if (this.initialBoard.getState(x, y) != CellState.EMPTY) {
+                    this.initialBoard.setState(x, y, CellState.EMPTY);
+                }
+            }
+        }
+
+        g.setStroke(Color.GRAY);
+        g.setLineWidth(0.05);
+        for ( int x = 0; x <= this.initialBoard.getWidth(); x++) {
+            g.strokeLine(x, 0, x, yColumns);
+        }
+
+        for (int y = 0; y <= this.initialBoard.getHeight(); y++) {
+            g.strokeLine(0, y, xRows, y);
+        }
+    }
 
         private void drawSimulation(Board simulationToDraw) {
             GraphicsContext g = this.canvas.getGraphicsContext2D();
@@ -261,11 +291,19 @@ public class GridView extends VBox {
         public int getApplicationState() {
             return applicationState;
         }
-
+/*
         public void clean(int x, int y) {
+
+            setApplicationState(EDITING);
+            simulation = null;
             this.initialBoard.setState(x,y,CellState.EMPTY);
             draw();
+
         }
+
+ */
+
+
 
         public Board getInitialBoard() {
             return this.initialBoard;
