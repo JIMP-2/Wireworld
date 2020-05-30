@@ -250,9 +250,6 @@ public class MainTool extends HBox {
         switchToSimulatingState();
         this.gridView.getSimulation().step();
         this.gridView.draw();
-        switchToSimulatingState();
-        this.gridView.getSimulation().step();
-        this.gridView.draw();
 
     }
 
