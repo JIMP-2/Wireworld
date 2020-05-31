@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static com.wireworld.Alerts.*;
 import static com.wireworld.GridView.xRows;
 
 public class Menu extends AnchorPane {
@@ -282,10 +283,24 @@ public class Menu extends AnchorPane {
     }
 
     private void handleStart(ActionEvent actionEvent) {
-        generations = Integer.parseInt(genField.getText());
-        switchToSimulatingState();
-        this.simulator.timelineNumber(generations);
-        this.simulator.start();
+
+
+        try {
+            generations = Integer.parseInt(genField.getText());
+
+            if(generations<=0)
+                showAlertGen();
+            else {
+                switchToSimulatingState();
+
+                this.simulator.timelineNumber(generations);
+
+                this.simulator.start();
+            }
+        }  catch (NumberFormatException n) {
+            showAlertGenInteger();
+        }
+
     }
 
 
@@ -307,9 +322,12 @@ public class Menu extends AnchorPane {
 
 
     private void switchToSimulatingState() {
+
+
         if (this.gridView.getApplicationState() == GridView.EDITING) {
             this.gridView.setApplicationState(GridView.SIMULATING);
             this.simulator = new Simulator(this.gridView, this.gridView.getSimulation(), generations);
+
         }
     }
 
