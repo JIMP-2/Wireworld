@@ -18,7 +18,7 @@ public class Simulator {
         this.generations = generations;
 
         this.timeline = new Timeline(new KeyFrame(Duration.millis(500), this::doStep));
-
+/*
 
         if( generations == 0) {
             this.timeline.setCycleCount(Timeline.INDEFINITE);
@@ -26,7 +26,15 @@ public class Simulator {
         else {
             this.timeline.setCycleCount(generations);
         }
+*/
+    }
 
+    public void timelineNumber(int generations) {
+        this.timeline.setCycleCount(generations);
+    }
+
+    public void timelineInf() {
+        this.timeline.setCycleCount(Timeline.INDEFINITE);
     }
 
 

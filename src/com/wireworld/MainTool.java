@@ -324,7 +324,7 @@ public class MainTool extends HBox {
 
         for (int x = 0; x < GridView.xRows; x++) {
             for (int y = 0; y < GridView.yColumns; y++) {
-                this.gridView.clean(x, y);
+                this.gridView.drawClean();
             }
         }
     }

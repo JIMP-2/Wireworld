@@ -59,6 +59,8 @@ public class GridView extends VBox {
 
         private Stage primaryStage;
 
+        private Toolbar toolbar;
+
         public GridView(BasicBoard initialBoard, int size, Stage primaryStage) {
 
             this.primaryStage = primaryStage;
@@ -79,9 +81,10 @@ public class GridView extends VBox {
             this.canvas = new Canvas(xRows*size, yColumns*size);
             this.canvas.setOnMousePressed(this::handleDraw);
             this.canvas.setOnMouseDragged(this::handleDraw);
-            this.canvas.setOnMouseMoved(this::handleMoved);
+            this.canvas.setOnMouseMoved(this::handleCursor);
 
-            Toolbar toolbar = new Toolbar(this, primaryStage, size);
+            this.toolbar = new Toolbar(this, primaryStage, size);
+            this.toolbar.setCursorCoord(0, 0);
 
             HBox hbox = new HBox();
             Menu toolbar2 = new Menu(this, primaryStage, size);
@@ -104,14 +107,18 @@ public class GridView extends VBox {
             this.initialBoard = initialBoard;
         }
 
+    private void handleCursor(MouseEvent mouseEvent) {
+        Point2D simCoord = this.getSimulationCoordinates(mouseEvent);
+
+        this.toolbar.setCursorCoord((int)simCoord.getX()+1, (int)simCoord.getY()+1);
+    }
 
 
-        private void handleMoved(MouseEvent mouseEvent) {
-            Point2D simCoord = this.getSimulationCoordinates(mouseEvent);
+  /*  private void handleMoved(MouseEvent mouseEvent) {
 
         }
 
-
+*/
 
         private void handleDraw(MouseEvent event) {
 

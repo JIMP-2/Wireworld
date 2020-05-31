@@ -207,7 +207,6 @@ public class Menu extends AnchorPane {
         clean.setPrefHeight(26);
 
         getChildren().addAll(drawConductor, drawEmpty, drawHead, drawTail, drawOR, drawXOR, drawAND, drawDIODEL, drawDIODER, drawDIODELV, drawDIODERV, genField, start, step, start2, stop, reset, clean);
-
     }
 
     private void handleDrawEMPTY(ActionEvent actionEvent) {
@@ -285,6 +284,7 @@ public class Menu extends AnchorPane {
     private void handleStart(ActionEvent actionEvent) {
         generations = Integer.parseInt(genField.getText());
         switchToSimulatingState();
+        this.simulator.timelineNumber(generations);
         this.simulator.start();
     }
 
@@ -292,6 +292,7 @@ public class Menu extends AnchorPane {
     private void handleStart2(ActionEvent actionEvent) {
         generations = 0;
         switchToSimulatingState();
+        this.simulator.timelineInf();
         this.simulator.start();
     }
 

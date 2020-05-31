@@ -4,10 +4,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import com.wireworld.model.Board;
 import com.wireworld.model.BasicBoard;
@@ -17,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -32,7 +37,8 @@ public class Toolbar extends ToolBar {
     private TextField genField;
     private Stage primaryStage;
 
-
+    private Label cursor;
+    private String cursorFormat = "Cursor: (%d, %d)";
 
 
     private Simulator simulator;
@@ -43,13 +49,38 @@ public class Toolbar extends ToolBar {
         this.gridView = gridView;
         this.gridView.setDrawMode(CellState.CONDUCTOR);
 
+        Button back = new Button("Go back");
+        back.setOnAction(this::handleBack);
+
 
         Button save = new Button("Save file");
         save.setOnAction(this::handleSave);
         save.setAlignment(Pos.CENTER);
 
-        this.getItems().addAll(save);
+        this.cursor = new Label();
 
+        Pane spacer = new Pane();
+        spacer.setMinSize(0, 0);
+        spacer.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        this.getItems().addAll(back, save, spacer, cursor);
+
+    }
+
+    public void setCursorCoord(int x, int y) {
+        this.cursor.setText(String.format(cursorFormat, x, y));
+    }
+
+    private void handleBack(ActionEvent actionEvent) {
+        WelcomeView welcomeView = new WelcomeView(primaryStage);
+        welcomeView.draw();
+        Scene scene = new Scene(welcomeView);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
+        primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
     }
 
     private void handleSave(ActionEvent actionEvent) {
