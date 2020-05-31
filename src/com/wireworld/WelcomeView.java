@@ -105,8 +105,8 @@ public class WelcomeView extends GridPane {
                     Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
                     // System.out.println(primScreenBounds.getWidth() +" "+ primScreenBounds.getHeight());
                     // System.out.println(x+" "+y);
-                    int sizeX = (int) (primScreenBounds.getWidth() - 300) / x; // to potem trzeba będzie poprawić
-                    int sizeY = (int) ((primScreenBounds.getHeight() - 100) / y); // (jak bedziemy wiedzialy, ile nam panel z przyciskami zajmuje
+                    int sizeX = (int) (primScreenBounds.getWidth()-310) / x; // to potem trzeba będzie poprawić
+                    int sizeY = (int) ((primScreenBounds.getHeight()-75) / y); // (jak bedziemy wiedzialy, ile nam panel z przyciskami zajmuje
                     int size = sizeX < sizeY ? sizeX : sizeY;
 
                     BasicBoard initialBoard = new BasicBoard(x, y);
@@ -166,8 +166,8 @@ public class WelcomeView extends GridPane {
                         int y = st.getHeight();
                         int x = st.getWidth();
                         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-                        int sizeX = (int) (primScreenBounds.getWidth() - 300) / x; // to potem trzeba będzie poprawić
-                        int sizeY = (int) ((primScreenBounds.getHeight() - 100) / y); // (jak bedziemy wiedzialy, ile nam panel z przyciskami zajmuje
+                        int sizeX = (int) (primScreenBounds.getWidth() - 310) / x; // to potem trzeba będzie poprawić
+                        int sizeY = (int) ((primScreenBounds.getHeight() - 75) / y); // (jak bedziemy wiedzialy, ile nam panel z przyciskami zajmuje
                         int size = sizeX < sizeY ? sizeX : sizeY;
 
                         GridView gridView = new GridView(st, size, primaryStage);
