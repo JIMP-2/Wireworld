@@ -1,5 +1,8 @@
 package com.wireworld;
 
+import com.wireworld.GridView;
+import com.wireworld.Simulation;
+import com.wireworld.Simulator;
 import com.wireworld.model.CellState;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -133,7 +136,7 @@ public class Menu extends AnchorPane {
 
 
         genField = new TextField();
-        genField.setPromptText("Liczba generacji:");
+        genField.setPromptText("Number of generations ");
         genField.setLayoutX(27);
         genField.setLayoutY(116);
         genField.setAlignment(Pos.CENTER);
