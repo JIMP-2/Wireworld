@@ -49,7 +49,7 @@ public class WelcomeView extends GridPane {
         this.add(welcomeBox, 0, 0);
 
         TextField height = new TextField("20");
-        Label label = new Label("Wysokosc: ");
+        Label label = new Label("Height: ");
         HBox box = new HBox();
         height.setMaxWidth(70);
         label.setStyle("-fx-font-size: 15px;");
@@ -57,7 +57,7 @@ public class WelcomeView extends GridPane {
         box.getChildren().addAll(label, height);
 
         TextField width = new TextField("20");
-        Label widthLabel = new Label("Szerokosc: ");
+        Label widthLabel = new Label("Width: ");
         widthLabel.setStyle("-fx-font-size: 15px;");
         width.setMaxWidth(70);
         HBox widthBox = new HBox();
@@ -121,7 +121,7 @@ public class WelcomeView extends GridPane {
         });
 
 
-        Text instruction = new Text("Stwórz nową planszę o wybranym rozmiarze lub wczytaj z pliku");
+        Text instruction = new Text("Choose height and width to create a new WireWorld board or load WireWorld board from file:");
         instruction.setStyle("-fx-font: 20px Tahoma;");
         HBox insBox = new HBox();
         insBox.setAlignment(Pos.CENTER);
@@ -129,7 +129,7 @@ public class WelcomeView extends GridPane {
         this.add(insBox, 0, 1);
 
 
-        Button file = new Button("Wczytaj planszę\nz pliku ");
+        Button file = new Button("Load from\n file ");
         file.setStyle("-fx-text-alignment: center;" +
                 "-fx-font-size: 13px;" +
                 "-fx-font-weight: bold;");
