@@ -156,7 +156,7 @@ public class Menu extends AnchorPane {
         step.setLayoutY(116);
         step.setAlignment(Pos.CENTER);
 
-        Button start2 = new Button("Start_To_Infinity");
+        Button start2 = new Button("Start to Infinity");
         start2.setOnAction(this::handleStart2);
         start2.setLayoutX(27);
         start2.setLayoutY(153);
