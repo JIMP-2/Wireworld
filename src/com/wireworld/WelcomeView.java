@@ -1,7 +1,6 @@
 package com.wireworld;
 
 import com.wireworld.model.BasicBoard;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -9,21 +8,20 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.*;
+import javafx.stage.FileChooser;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+
+import java.io.*;
 
 import static com.wireworld.Alerts.showAlert;
 import static com.wireworld.Alerts.showAlertInteger;
-
-import java.io.*;
 
 
 public class WelcomeView extends GridPane {
@@ -38,37 +36,33 @@ public class WelcomeView extends GridPane {
     }
 
 
-
-        public  void draw() {
+    public void draw() {
         Text welcome = new Text("W I R E W O R L D");
         welcome.setStyle("   -fx-font: 40px Tahoma;\n" +
                 "    -fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, blue 0%, red 33%, yellow 66%);\n" +
                 "    -fx-stroke: black;\n" +
                 "    -fx-stroke-width: 1;\n" +
                 "   -fx-alignment: center;");
-        HBox welcomeBox= new HBox();
+        HBox welcomeBox = new HBox();
         welcomeBox.setAlignment(Pos.CENTER);
         welcomeBox.getChildren().addAll(welcome);
         this.add(welcomeBox, 0, 0);
 
         TextField height = new TextField("20");
-        Label label = new Label ("Wysokosc: ");
-        int ymax = Integer.parseInt(height.getText());
+        Label label = new Label("Wysokosc: ");
         HBox box = new HBox();
         height.setMaxWidth(70);
-        label.setStyle("-fx-font-size: 15px;" );
+        label.setStyle("-fx-font-size: 15px;");
         box.setAlignment(Pos.CENTER);
         box.getChildren().addAll(label, height);
 
         TextField width = new TextField("20");
         Label widthLabel = new Label("Szerokosc: ");
-        widthLabel.setStyle("-fx-font-size: 15px;" );
+        widthLabel.setStyle("-fx-font-size: 15px;");
         width.setMaxWidth(70);
-        //StackPane textContainer = new StackPane(width);
         HBox widthBox = new HBox();
         widthBox.setAlignment(Pos.CENTER);
         widthBox.getChildren().addAll(widthLabel, width);
-
 
 
         Button create = new Button("Create");
@@ -77,7 +71,6 @@ public class WelcomeView extends GridPane {
         create.setStyle("-fx-text-alignment: center;" +
                 "-fx-font-size: 13px;" +
                 "-fx-font-weight: bold;");
-        // grid.add(create, 2, 2);
         HBox data = new HBox();
         data.setAlignment(Pos.CENTER);
         data.getChildren().addAll(box, widthBox, create);
@@ -87,46 +80,46 @@ public class WelcomeView extends GridPane {
             @Override
             public void handle(ActionEvent actionEvent) {
 
-
                 int x = -1;
                 int y = -1;
 
 
                 try {
-                y = Integer.parseInt(height.getText());
-                x = Integer.parseInt(width.getText());
+                    y = Integer.parseInt(height.getText());
+                    x = Integer.parseInt(width.getText());
                 } catch (NumberFormatException n) {
                     showAlertInteger();
                 }
 
                 if (x >= 0 || y >= 0)
-                try {
+                    try {
 
-                    Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-                    // System.out.println(primScreenBounds.getWidth() +" "+ primScreenBounds.getHeight());
-                    // System.out.println(x+" "+y);
-                    int sizeX = (int) (primScreenBounds.getWidth()-310) / x; // to potem trzeba będzie poprawić
-                    int sizeY = (int) ((primScreenBounds.getHeight()-75) / y); // (jak bedziemy wiedzialy, ile nam panel z przyciskami zajmuje
-                    int size = sizeX < sizeY ? sizeX : sizeY;
+                        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
 
-                    BasicBoard initialBoard = new BasicBoard(x, y);
+                        int sizeX = (int) (primScreenBounds.getWidth() - 310) / x;
+                        int sizeY = (int) ((primScreenBounds.getHeight() - 75) / y);
+                        int size = sizeX < sizeY ? sizeX : sizeY;
 
 
-                    GridView gridView = new GridView(initialBoard, size, primaryStage);
-                    Scene scene = new Scene(gridView);
-                    primaryStage.setScene(scene);
-                    primaryStage.show();
+                        BasicBoard initialBoard = new BasicBoard(x, y);
 
-                    gridView.draw();
 
-                    primaryStage.setScene(scene);
-                    primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
-                    primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
-                }  catch (Exception e) {
-                    showAlert();
-                }
+                        GridView gridView = new GridView(initialBoard, size, primaryStage);
+                        Scene scene = new Scene(gridView);
+                        primaryStage.setScene(scene);
+                        primaryStage.show();
+
+                        gridView.draw();
+
+                        primaryStage.setScene(scene);
+                        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
+                        primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
+                    } catch (Exception e) {
+                        showAlert();
+                    }
             }
         });
+
 
         Text instruction = new Text("Stwórz nową planszę o wybranym rozmiarze lub wczytaj z pliku");
         instruction.setStyle("-fx-font: 20px Tahoma;");
@@ -134,6 +127,7 @@ public class WelcomeView extends GridPane {
         insBox.setAlignment(Pos.CENTER);
         insBox.getChildren().addAll(instruction);
         this.add(insBox, 0, 1);
+
 
         Button file = new Button("Wczytaj planszę\nz pliku ");
         file.setStyle("-fx-text-alignment: center;" +
@@ -149,7 +143,7 @@ public class WelcomeView extends GridPane {
                 fileChooser.setInitialDirectory(new File("data"));
                 fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("SER Files", "*.ser"));
                 File selectedFile = fileChooser.showOpenDialog(primaryStage);
-                if(selectedFile!=null) {
+                if (selectedFile != null) {
                     try {
                         BasicBoard st = null;
 
@@ -166,8 +160,8 @@ public class WelcomeView extends GridPane {
                         int y = st.getHeight();
                         int x = st.getWidth();
                         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-                        int sizeX = (int) (primScreenBounds.getWidth() - 310) / x; // to potem trzeba będzie poprawić
-                        int sizeY = (int) ((primScreenBounds.getHeight() - 75) / y); // (jak bedziemy wiedzialy, ile nam panel z przyciskami zajmuje
+                        int sizeX = (int) (primScreenBounds.getWidth() - 310) / x;
+                        int sizeY = (int) ((primScreenBounds.getHeight() - 75) / y);
                         int size = sizeX < sizeY ? sizeX : sizeY;
 
                         GridView gridView = new GridView(st, size, primaryStage);
@@ -192,13 +186,7 @@ public class WelcomeView extends GridPane {
                     }
                 }
 
-
-            System.out.println("click");
-
-
-
-
-
+                System.out.println("click");
 
             }
         });

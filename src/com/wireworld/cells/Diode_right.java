@@ -1,4 +1,4 @@
-package com.wireworld.Cells;
+package com.wireworld.cells;
 
 
 import com.wireworld.GridView;
@@ -16,7 +16,7 @@ public class Diode_right extends GridView {
         super(initialBoard, size, primaryStage);
     }
 
-    public static void  drawDiodeRight(Board simulationToDraw, int x, int y, GraphicsContext g) {
+    public static void drawDiodeRight(Board simulationToDraw, int x, int y, GraphicsContext g) {
 
 
         g.setFill(Color.YELLOW);
@@ -31,7 +31,6 @@ public class Diode_right extends GridView {
         simulationToDraw.setState(x + 4, y + 1, CellState.CONDUCTOR);
         simulationToDraw.setState(x + 5, y, CellState.CONDUCTOR);
         simulationToDraw.setState(x + 6, y, CellState.CONDUCTOR);
-
 
 
     }

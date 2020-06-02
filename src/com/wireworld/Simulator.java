@@ -2,8 +2,8 @@ package com.wireworld;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.util.Duration;
 import javafx.event.ActionEvent;
+import javafx.util.Duration;
 
 public class Simulator {
 
@@ -18,19 +18,13 @@ public class Simulator {
         this.generations = generations;
 
         this.timeline = new Timeline(new KeyFrame(Duration.millis(500), this::doStep));
-/*
 
-        if( generations == 0) {
-            this.timeline.setCycleCount(Timeline.INDEFINITE);
-        }
-        else {
-            this.timeline.setCycleCount(generations);
-        }
-*/
     }
 
     public void timelineNumber(int generations) {
+
         this.timeline.setCycleCount(generations);
+
     }
 
     public void timelineInf() {

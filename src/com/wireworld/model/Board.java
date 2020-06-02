@@ -10,6 +10,6 @@ public interface Board {
 
     int getWidth();
 
-   int getHeight();
+    int getHeight();
 
 }

@@ -1,4 +1,4 @@
-package com.wireworld.Cells;
+package com.wireworld.cells;
 
 import com.wireworld.GridView;
 import com.wireworld.model.BasicBoard;

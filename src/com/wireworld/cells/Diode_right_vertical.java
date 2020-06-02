@@ -1,4 +1,4 @@
-package com.wireworld.Cells;
+package com.wireworld.cells;
 
 import com.wireworld.GridView;
 import com.wireworld.model.BasicBoard;
@@ -19,19 +19,19 @@ public class Diode_right_vertical extends GridView {
 
         g.setFill(Color.YELLOW);
         g.fillRect(x, y, 1, 1);
-        g.fillRect(x-1, y+3, 1, 1);
-        g.fillRect(x-1, y+4, 1, 1);
+        g.fillRect(x - 1, y + 3, 1, 1);
+        g.fillRect(x - 1, y + 4, 1, 1);
         simulationToDraw.setState(x, y, CellState.CONDUCTOR);
-        simulationToDraw.setState(x , y+1, CellState.CONDUCTOR);
-        simulationToDraw.setState(x, y+2, CellState.CONDUCTOR);
-        simulationToDraw.setState(x  -1, y +3, CellState.CONDUCTOR);
+        simulationToDraw.setState(x, y + 1, CellState.CONDUCTOR);
+        simulationToDraw.setState(x, y + 2, CellState.CONDUCTOR);
+        simulationToDraw.setState(x - 1, y + 3, CellState.CONDUCTOR);
         simulationToDraw.setState(x + 1, y + 3, CellState.CONDUCTOR);
-        simulationToDraw.setState(x -1, y+4, CellState.CONDUCTOR);
-        simulationToDraw.setState(x , y +4, CellState.CONDUCTOR);
+        simulationToDraw.setState(x - 1, y + 4, CellState.CONDUCTOR);
+        simulationToDraw.setState(x, y + 4, CellState.CONDUCTOR);
         simulationToDraw.setState(x + 1, y + 4, CellState.CONDUCTOR);
-        simulationToDraw.setState(x , y+5, CellState.CONDUCTOR);
-        simulationToDraw.setState(x , y+6, CellState.CONDUCTOR);
-        simulationToDraw.setState(x , y+7, CellState.CONDUCTOR);
+        simulationToDraw.setState(x, y + 5, CellState.CONDUCTOR);
+        simulationToDraw.setState(x, y + 6, CellState.CONDUCTOR);
+        simulationToDraw.setState(x, y + 7, CellState.CONDUCTOR);
 
     }
 

@@ -2,23 +2,17 @@ package com.wireworld;
 
 import com.wireworld.model.CellState;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
-import static com.wireworld.Alerts.*;
-import static com.wireworld.GridView.xRows;
+import static com.wireworld.Alerts.showAlertGen;
+import static com.wireworld.Alerts.showAlertGenInteger;
 
 public class Menu extends AnchorPane {
     private GridView gridView;
@@ -28,7 +22,6 @@ public class Menu extends AnchorPane {
 
 
     private Simulator simulator;
-    private Simulation simulation;
 
 
     public Menu(GridView gridView, Stage primaryStage, int size) {
@@ -38,8 +31,7 @@ public class Menu extends AnchorPane {
         this.setPadding(new Insets(0, 27, 27, 0));
 
 
-
-        Button drawConductor = new Button("conductor");
+        Button drawConductor = new Button("Conductor");
         drawConductor.setGraphic(new Circle(4, Color.YELLOW));
         drawConductor.setOnAction(this::handleDrawCONDUCTOR);
         drawConductor.setLayoutX(27);
@@ -48,7 +40,7 @@ public class Menu extends AnchorPane {
         drawConductor.setPrefWidth(119);
         drawConductor.setPrefHeight(26);
 
-        Button drawEmpty = new Button("empty");
+        Button drawEmpty = new Button("Empty");
         drawEmpty.setGraphic(new Circle(4, Color.BLACK));
         drawEmpty.setOnAction(this::handleDrawEMPTY);
         drawEmpty.setLayoutX(157);
@@ -57,7 +49,7 @@ public class Menu extends AnchorPane {
         drawEmpty.setPrefWidth(119);
         drawEmpty.setPrefHeight(26);
 
-        Button drawTail = new Button("tail");
+        Button drawTail = new Button("Tail");
         drawTail.setGraphic(new Circle(4, Color.RED));
         drawTail.setOnAction(this::handleDrawTAIL);
         drawTail.setLayoutX(157);
@@ -67,7 +59,7 @@ public class Menu extends AnchorPane {
         drawTail.setPrefHeight(26);
 
 
-        Button drawHead = new Button("head");
+        Button drawHead = new Button("Head");
         drawHead.setGraphic(new Circle(4, Color.BLUE));
         drawHead.setOnAction(this::handleDrawHED);
         drawHead.setLayoutX(27);
@@ -139,13 +131,6 @@ public class Menu extends AnchorPane {
         drawDIODERV.setPrefWidth(119);
         drawDIODERV.setPrefHeight(26);
 
-/*
-        Label label = new Label("Liczba generacji: ");
-        //   label.setTranslateY(238);
-        label.setAlignment(Pos.BASELINE_LEFT);
-        //  label.setTranslateX(xRows * size  -945);
-        //    label.setPrefWidth(120);
-*/
 
         genField = new TextField();
         genField.setPromptText("Liczba generacji:");
@@ -154,7 +139,6 @@ public class Menu extends AnchorPane {
         genField.setAlignment(Pos.CENTER);
         genField.setPrefWidth(144);
         genField.setPrefHeight(26);
-
 
 
         Button start = new Button("Start");
@@ -199,7 +183,7 @@ public class Menu extends AnchorPane {
         reset.setPrefHeight(26);
 
 
-        Button clean = new Button("clean");
+        Button clean = new Button("Clean");
         clean.setOnAction(this::handleClean);
         clean.setLayoutX(27);
         clean.setLayoutY(194);
@@ -270,7 +254,7 @@ public class Menu extends AnchorPane {
     private void handleStop(ActionEvent actionEvent) {
         try {
             this.simulator.stop();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Stop Error");
         }
     }
@@ -288,7 +272,7 @@ public class Menu extends AnchorPane {
         try {
             generations = Integer.parseInt(genField.getText());
 
-            if(generations<=0)
+            if (generations <= 0)
                 showAlertGen();
             else {
                 switchToSimulatingState();
@@ -297,7 +281,7 @@ public class Menu extends AnchorPane {
 
                 this.simulator.start();
             }
-        }  catch (NumberFormatException n) {
+        } catch (NumberFormatException n) {
             showAlertGenInteger();
         }
 
@@ -338,7 +322,6 @@ public class Menu extends AnchorPane {
         this.gridView.drawClean();
 
     }
-
-    }
+}
 
 

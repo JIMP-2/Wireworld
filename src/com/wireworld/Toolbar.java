@@ -1,48 +1,36 @@
 package com.wireworld;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.EventHandler;
+import com.wireworld.model.CellState;
+import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
-import javafx.scene.paint.Color;
-import com.wireworld.model.Board;
-import com.wireworld.model.BasicBoard;
-import com.wireworld.model.CellState;
-import com.wireworld.model.StandardRule;
-import javafx.event.ActionEvent;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
-import java.io.*;
-
-import static com.wireworld.GridView.xRows;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 
 public class Toolbar extends ToolBar {
 
     private GridView gridView;
-    private int generations;
-    private TextField genField;
     private Stage primaryStage;
 
     private Label cursor;
     private String cursorFormat = "Cursor: (%d, %d)";
 
 
-    private Simulator simulator;
-    private Simulation simulation;
 
     public Toolbar(GridView gridView, Stage primaryStage, int size) {
         this.primaryStage = primaryStage;
@@ -86,29 +74,28 @@ public class Toolbar extends ToolBar {
     private void handleSave(ActionEvent actionEvent) {
 
 
-            FileChooser fileChooser = new FileChooser();
-            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("SER files (*.ser)", "*.ser");
-            fileChooser.getExtensionFilters().add(extFilter);
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("SER files (*.ser)", "*.ser");
+        fileChooser.getExtensionFilters().add(extFilter);
 
-            File selectedFile = fileChooser.showSaveDialog(primaryStage);
+        File selectedFile = fileChooser.showSaveDialog(primaryStage);
 
-            if(selectedFile != null) {
-                if(!selectedFile.getName().contains(".ser")) {
-                    selectedFile = new File(selectedFile.getAbsolutePath()+".ser");
-                }
-                try {
-                    FileOutputStream fo = new FileOutputStream(selectedFile);
-                    ObjectOutputStream oo = new ObjectOutputStream(fo);
-
-                    oo.writeObject(this.gridView.getInitialBoard());
-
-                    oo.close();
-                    fo.close();
-                }
-                catch(IOException e) {
-                    e.printStackTrace();
-                }
+        if (selectedFile != null) {
+            if (!selectedFile.getName().contains(".ser")) {
+                selectedFile = new File(selectedFile.getAbsolutePath() + ".ser");
             }
+            try {
+                FileOutputStream fo = new FileOutputStream(selectedFile);
+                ObjectOutputStream oo = new ObjectOutputStream(fo);
+
+                oo.writeObject(this.gridView.getInitialBoard());
+
+                oo.close();
+                fo.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 

@@ -17,14 +17,13 @@ public class StandardRule implements SimulationRule {
         }
         if (board.getState(x, y) == CellState.CONDUCTOR) {
             if (aliveNeighbours == 1 || aliveNeighbours == 2) {
-            return CellState.HEAD;
-        }
-            else {
+                return CellState.HEAD;
+            } else {
                 return CellState.CONDUCTOR;
             }
-            }
-        return CellState.CONDUCTOR;
         }
+        return CellState.CONDUCTOR;
+    }
 
     private int countAliveNeighbours(int x, int y, Board board) {
         int count = 0;
