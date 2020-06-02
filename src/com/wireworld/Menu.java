@@ -1,8 +1,5 @@
 package com.wireworld;
 
-import com.wireworld.GridView;
-import com.wireworld.Simulation;
-import com.wireworld.Simulator;
 import com.wireworld.model.CellState;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
